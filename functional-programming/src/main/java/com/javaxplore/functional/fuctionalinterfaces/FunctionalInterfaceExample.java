@@ -1,10 +1,12 @@
 package com.javaxplore.functional.fuctionalinterfaces;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.function.*;
 
 public class FunctionalInterfaceExample {
+    private static Random random = new SecureRandom();
 
     @SuppressWarnings("unused")
     public static void main(String[] args) {
@@ -27,7 +29,7 @@ public class FunctionalInterfaceExample {
         Supplier<Integer> integerSupplier = () -> 2;
 
         Supplier<Integer> randomIntegerSupplier = () -> {
-            Random random = new Random();
+
             return random.nextInt(1000);
         };
 

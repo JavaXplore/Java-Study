@@ -2,6 +2,8 @@ package com.javaxplore.functional.stream.custom;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StreamUtilityMethods {
@@ -30,8 +32,19 @@ public class StreamUtilityMethods {
     }
 
     private static void minAndMaxAndFindFirstAndFindAnyExecution(List<Course> courses) {
+        Predicate<Course> reviewScoreLessThan90Predicate = course-> course.getReviewScore()<90;
+        Comparator comparingByNoOfStudentsAndNoOfReviews = Comparator.comparingInt(Course::getNoOfStudents).thenComparingInt(Course::getReviewScore).reversed();
         System.out.println("*************************************************************");
-        
+
+        Optional max = courses.stream()
+                .max(comparingByNoOfStudentsAndNoOfReviews);
+        System.out.println(max);
+
+        Optional min = courses.stream()
+                .min(comparingByNoOfStudentsAndNoOfReviews);
+
+        System.out.println(min);
+
     }
 
     /**
