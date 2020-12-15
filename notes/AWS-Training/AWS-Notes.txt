@@ -1,0 +1,125 @@
+IAM:
+1) IAM is universal: It does not apply to regions at this time.
+2) The "root account" is simply the account created when we setup AWS account. It has complete Admin access.
+3) New users have No permissions when first created.
+4) New users are assigned Access key ID and Secret Access Keys when first created. (for console access and programitic access)
+5) These are not same as password. You can not use Access Key ID and Secret Access Keys to login to the console However, we can use this to access AWS via APIs and command line.
+6) You only get to view these once. If you loose then, you have to regenerate them. So we should save them securely.
+7) Always setup multifactor authentication for root account.
+------------------------------------------------------------------------------------------------------------------------------------
+BILLING ALARM:
+1) Create alarm for billing threshold achieved for services
+2) Billing Alarm depends on SNS topic which sends mail to subscribed emails.
+------------------------------------------------------------------------------------------------------------------------------------
+S3
+1) S3 is object based storage service. It allows you to save files.
+2) Files can be from 0 bytes to 5 TB.
+3) There is unlimited storage.
+4) Files are stored in Buckets. Bucket is basically a folder.
+5) S3 is a universal namespace, hence name should be unique globally.
+6) When you upload file to S3 then you receive 200 HTTP code when the file is successfully uploaded.
+7) S3 object consist of following:
+	a) Key- (It is simply the name of object)
+	b) Value- (It is the data and is made up of a sequence of bytes)
+	c) Version ID - (It is basically the version and important for versioning)
+	d) Metadata - (Data about data)
+	e) Subresource-
+		Access control list (This is basically the permissions for the data object)
+		Torrents
+8) Data consistency with S3
+	a) Read after write consistency for PUTS of new objects. (This means if we write an object to S3 then we can immediately request for read and we will get the same file)
+	
+	b) Eventual Consistency for overwrite PUTS or DELETES (This means if we overwrite or delete a file then this may take little bit time to update, i.e. if you overwrite a file then you have 2 versions of the same file and if you try to fetch the file immediately then you may get the older version or you may not. Basically it may take some time to propogate.)
+9) S3 has following gurantee from Amazon:
+	a) Built for 99.99% availability for the S3 platform.
+	b) Amazon gurantee 99.9% availability.
+	c) Amazon gurantee99.999999999% durability for S3 information. (11 x 9s)
+10) S3 Features:
+	a) Tiered Storage Available. (Important for exam)
+	b) Lifecycle management.
+	c) Versioning
+	d) Encryption
+	e) MFA Delete
+	f) Secure your data using Access control list and bucket policies.
+11) Charges for S3:
+	a) Storage
+	b) Requests
+	c) Storage Management Pricing
+	d) Data Transfer Pricing
+	e) Transfer Acceleration (This enables fast, easy and secure transfer of files over long distances between your end user and S3 bucket. Transfer acceleration takes advantage of Amazon cloudfront's globally distributed edge location, data is routed to Amazon S3 over an optimized network path.)
+	f) Cross Region Replication Pricing
+12) S3 is not suitable for installing operating system or Database as for this we need block based storage and S3 is object based storage.
+13) You can turn on Multi Factor Authentication DELETE. (This helps to secure data from tampering)
+14) Control access to buckets is done by using bucket ACL or Bucket policies.
+*** Read S3 FAQ's
+------------------------------------------------------------------------------------------------------------------------------------
+S3- Pricing
+
+What drives the pricing/cost of S3
+1) Storage
+2) Request and data retrivals
+3) Data transfer
+4) Mangement and Replication 
+
+Different Tiers of S3 (Organised as per cost of each tier. Standard being the costliest)
+1) S3 Standard
+2) S3 IA (Infrequently Accessed)
+3) S3 Intelligent Tiering (Combination of S3 Standard and S3 IA) 
+4) S3 One Zone IA (Infrequently Accessed) 
+5) S3 Glacier
+6) S3 Glacier Deep Archive
+
+------------------------------------------------------------------------------------------------------------------------------------
+S3 Security and Encryption
+
+Security: By default all the buckets created are private. We can setup access control to buckets using BUCKET POLICIES and ACCESS CONTROL LIST.
+We can configure S3 to create accesss logs. These logs have all the log of requests made to the S3 bucket. These logs can be sent to same bucket or another bucket of different account.
+
+Encryption:
+
+Two Types of Encryption:
+A] Encryption in Transit. (Ex: HTTPS i.e. SSL/TLS)
+B] Encryption at Rest (Server Side) is achieved by:
+	a) On server side. (AWS takes care of this)
+		1) S3 managed keys- SSE-S3 
+			These are managed by AWS and we dont have to worry about it.
+		2) AWS key management Service, Managed keys - SSE-KMS
+			This is where AWS and you manage the keys together.
+		3) Server side encryption with customer provided keys- SSE-C
+			This is where we can give our own key to Amazon that is managed by us. 	
+	b) On client side. This is done by our code. We encrypt the file and save it on the S3. Encryption is done at client side.
+------------------------------------------------------------------------------------------------------------------------------------
+Versioning with S3
+1) Stores all versions of an object (including all writes and even if you delete an object)
+2) Great backup tool
+3) Once enabled, versioning can not be disabled, only suspended.
+4) Integrates with lifecycle rules.
+5) Versioning MFA delete capability. (To delete object from S3 you need MFA so that no one deletes the data purposefully or accidentally)
+6) For every version of a file (includes DELETE also) there is always a copy of that version maintained in S3. Thus this is space consuming and should be well thought of during architectural designing.
+------------------------------------------------------------------------------------------------------------------------------------
+S3 Lifecycle Management
+1) This helps to automate moving of your objects between different storage tiers.
+2) This also works with versioning if enabled.
+3) Hence it can be applied to current version and previous versions
+4) This can be used for applying clean up strategy which will delete an object after some period of time as configured.
+------------------------------------------------------------------------------------------------------------------------------------
+AWS Organization
+1) We can create multiple accounts under organizaion.
+2) These multiple accounts can be used for different departments in an organizaion.
+3) Billing will be different for these accounts.
+4) One bill per AWS account
+5) It is very easy to track charges and allocate costs to accounts.
+6) We get a consolidated bill for all the account in an organizaion.
+7) Volume priceing discount can be availed. 
+
+	Exam tips:
+	1) Always enable MFA on root account.
+	2) Always use Strong and complex password for root account.
+	3) Paying account should be used for billing purpose only. Do not deploy resources into paying account.
+	4) Enable/Disable AWS services using Service Control Policies (SCP) either on Oranizaional Unit (OU) or on individual accounts.
+------------------------------------------------------------------------------------------------------------------------------------
+Sharing S3 bucket between Accounts
+Different ways to share S3 bucket between accounts:
+	a) Using bucket policies and IAM (applies across the entire bucket). Programmatic access only hence can't be done using console.
+	b) Using bucket ACLs and IAM (individual object). Programmatic access only hence can't be done using console.
+	c) Cross account IAM roles. Programmatic and console access.
