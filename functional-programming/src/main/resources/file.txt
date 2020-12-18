@@ -1,0 +1,3 @@
+About this course
+Learn Java Functional Programming with Lambdas & Streams.
+Learn the most powerful NEW feature in Java 8 and Java 9.
