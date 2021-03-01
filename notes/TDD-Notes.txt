@@ -1,0 +1,29 @@
+TDD ToDo concepts:
+A] Mocito
+	1) Creating mocks
+	2) Stubbing methods
+	3) Argument Matching
+	4) Stubbing consecutive calls
+	5) Verification order
+	6) Capturing Arguments (ArgumentCaptors)
+	7) Partial mocks (Spy)
+		We can not mock private and static methods.
+B] PowerMockito and static method stubbing
+	a) Steps:
+		1) @RunWith(PowerMockRunner.class)
+		2) @PrepareForTest(value={StaticClass.class})
+		3) PowerMockito.mockStatic(StaticMethodClass)
+		4) PowerMockito when then
+		5) PowerMockito.verifyStatic()
+
+	b) PowerMockito.whenNew() 
+	c) PowerMockito helps to stub the private and final methods. This is achived because PowerMock works on bytecode manipulation while classloading
+	d)PowerMockito.verifyPrivate
+	e) Read WhiteBox class
+C] DB testing
+	Check DBUnit more for testing DB/DAO code.
+	DBUnit helps for below things:
+		Connections
+		Database Operations
+		Data sets
+		

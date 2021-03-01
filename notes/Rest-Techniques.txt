@@ -1,0 +1,61 @@
+Tips for Modeling API's
+1) Don't worry about the tools
+2) Have a consistant process. 
+3) It doesnt count unless it's written down. (Document everything. Assumptions, decisions, deffered tasks or anything which might be important for you, your team or clients/customers)
+
+Modeling process:
+Step 1: Identify the Participants.
+		- Also known as people who will use our API or better - the entities (participants can be human or not human like bot or iot devices) who will use our API
+		- Who is involved in Business processes?
+			~ Anyone who initiates an action.
+			~ Anyone who waits for an action to occure.
+		- What do we need to know?
+			~ Who they are?
+			~ Are they internal or external
+			~ Are they active or passive participants.
+		** Be careful of your system boundries. 
+
+Step 2: Identify Activities
+		We should identify activities of participants very clearly. This will help to establish the boundries and validations in the process.
+		Do not assume or have assumptions. Get it clear from PO and document them for reference.
+Step 3:	Break into steps
+		Break down the activities into different steps.
+Step 4: Create API defination
+		~ Identify the resources.
+		~ This can be done by identifying the nouns from the steps and activities. You may get the list of resources while discussions about the feature.
+		~ Once you have your nouns/resources then you can find the actions required on the resources. (Ex: Item: Add item, update item data, delete item, retrive item)
+		
+Step 5: Validate your API
+		~ Itentify the verbs for actions. (GET, DELETE, POST, PUT)
+		~ Create API.
+
+Relationships between resources.
+1. Independent. (Movie and actors)
+2. Dependent. (Characters in movie)
+3. Associative. (One actor plays multiple characters or one character is played by multiple actors)
+
+Document everything. Never look out for a document which is perfect. Documentation is done to get recommendations from clients/customers and for our understanding. Eventually document gets close to perfect as time passes. 
+Also keep in mind documentation is not the end process which is done once the project is done. It is a contineous process.
+------------------------------------------------------------------------------------------------
+HTTP:
+
+Common misunderstanding explained correctly:
+1) HTTP is a protocol
+2) XML is a markup language
+3) JSON is a notation
+4) XML standards can add structure.
+5) JSON specification can add context.
+6) REST is non of the above.
+
+Do not create your own response codes.
+
+------------------------------------------------------------------------------------------------
+For documentation use slate, jeykll
+
+SDK
+
+S Succicnt
+P Purposeful
+O Open Source
+I Idiomatic
+L Logical (Principal of Least Surprise)
